@@ -14,43 +14,59 @@ import React, { Component } from 'react'
 
 export default class FriendForm extends Component {
     state = {
-        id: '',
+       friend: { 
+        id: new Date(),
         name: '',
         age: '',
         email: ''
-    };
+    }};
+
     /*event handler for submit and changeHandler*/
-    
+
+     changeHandler = e => {
+       e.preventDefault();
+       this.setState({
+           friend: {
+               ...this.state.friend,
+               [e.target.name]: e.target.value
+           }
+       });
+     }; 
+
+     handleSubmit = e => {
+         e.preventDefault();
+         this.setState(this.state.friend);
+     };
 
 /**basic form to add new friends */
     
     render() {
         return (
             <div>    
-               <form onSubmit={handleSubmit}>
+               <form onSubmit={this.handleSubmit}>
                  <label htmlFor='name'></label>
-                   <input key={friend.id}
+                   <input key={this.friend.id}
                      type='text'
                      name='name'
                      placeholder='Name'
-                     value={friend.name}
-                     onChange={changeHandler}
+                     value={this.friend.name}
+                     onChange={this.changeHandler}
                     /> 
                  <label htmlFor='age'></label>
-                   <input key={id}
+                   <input key={this.friend.id}
                      type='text'
                      name='age'
                      placeholder='Age'
-                     value={friend.age}
-                     onChange={changeHandler}
+                     value={this.friend.age}
+                     onChange={this.changeHandler}
                     /> 
                   <label htmlFor='email'></label>
-                   <input key={id}
+                   <input key={this.friend.id}
                      type='text'
                      name='email'
                      placeholder='Email'
-                     value={friend.email}
-                     onChange={changeHandler}
+                     value={this.friend.email}
+                     onChange={this.changeHandler}
                     /> 
                  <button className='btn'>Add Friend!</button>
                </form>                          

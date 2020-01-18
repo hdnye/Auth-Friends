@@ -4,6 +4,8 @@ import axios from "axios";
 // - baseURL
 // - headers object -> authorization header with the token
 
+/*to display data w/o login authentication */
+
 const axiosWithAuth = () => {
   const token = localStorage.getItem("token");
 

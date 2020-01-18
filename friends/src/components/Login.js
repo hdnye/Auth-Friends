@@ -42,12 +42,14 @@ export default class Login extends Component {
                   <input
                     type='text'
                     name='username'
+                    placeholder='Username'
                     value={this.state.credentials.username}
                     onChange={this.handleChanges}
                   />  
                   <input
                     type='text'
                     name='password'
+                    placeholder='Password'
                     value={this.state.credentials.password}
                     onChange={this.handleChanges}
                   />     

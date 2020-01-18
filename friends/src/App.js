@@ -5,18 +5,23 @@ import './App.css';
 import PrivateRoute from './components/PrivateRoute';
 import FriendsList from './components/FriendsLIst';
 import Login from './components/Login';
-
+import FriendForm from './components/FriendForm';
 
 function App() {
   return (
    <Router>
     <div className="App">
       <header className="App-header">
-        {/* <NavLink exact to='/login'>Login</NavLink> */}
-        {/* <NavLink exact to='/friend-form'>Add Friend</NavLink> */}
+        <NavLink exact to='/login'>Login</NavLink>
+        <NavLink exact to='/friend-form'>Add Friend</NavLink>
         <Switch>
-         <PrivateRoute exact path='/private' component={FriendsList} />
-         <Route path='login' component={Login} />
+         <PrivateRoute exact path='/private' component={FriendsList} 
+          render={props => (
+            <FriendsList {...props}
+             friends={props.friend} />
+          )} 
+         />  
+         <Route path='/login' component={Login} />
         </Switch> 
       </header>
      </div>
