@@ -15,11 +15,13 @@ import axiosWithAuth from './axiosWithAuth';
 
     getData = () => {
         axiosWithAuth
-         .get('/api/friends', {headers: { Authorization: localStorage.getItem('token')}})
+         .get('/api/friends', {headers: 
+            { Authorization: localStorage.getItem('token')}})
          .then(res => {
             console.log(res.data)
          })
-         .catch(err => console.log('error', err));
+         .catch(err => 
+            console.log('error', err));
     };
  
  render() {

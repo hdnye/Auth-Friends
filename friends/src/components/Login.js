@@ -17,9 +17,11 @@ export default class Login extends Component {
       axios
        .post(`http://localhost:5000/api/login`, this.state.credentials)
        .then(res => {
-           localStorage.setItem('token', res.data.payload)
+           localStorage.setItem(
+            'token', res.data.payload)
         })
-        .catch(err => console.log('Username or Password incorrect. Please see Readme', err));
+        .catch(err => 
+            console.log('Username or Password incorrect. Please see Readme', err));
     };
 
 
@@ -34,7 +36,7 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div>
+            <div className='form'>
                <form onSubmit={this.login}>
                  <label htmlFor='login'></label>   
                   <input
@@ -49,8 +51,7 @@ export default class Login extends Component {
                     value={this.state.credentials.password}
                     onChange={this.handleChanges}
                   />     
-                 <button>Log In</button>
-
+                 <button className='btn'>Log In</button>
               </form>
             </div>
         );

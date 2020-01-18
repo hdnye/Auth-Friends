@@ -12,7 +12,8 @@ function App() {
    <Router>
     <div className="App">
       <header className="App-header">
-        {/* <NavLink to='/login'></NavLink> */}
+        {/* <NavLink exact to='/login'>Login</NavLink> */}
+        {/* <NavLink exact to='/friend-form'>Add Friend</NavLink> */}
         <Switch>
          <PrivateRoute exact path='/private' component={FriendsList} />
          <Route path='login' component={Login} />
