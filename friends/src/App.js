@@ -9,24 +9,22 @@ import FriendForm from './components/FriendForm';
 
 function App() {
   return (
-   <Router>
     <div className="App">
-      <header className="App-header">
-        <NavLink exact to='/login'>Login</NavLink>
+      <h1>Hey Friends!</h1>
+        <NavLink exact to='/login'>Login</NavLink><br />
         <NavLink exact to='/friend-form'>Add Friend</NavLink>
         <Switch>
-         <PrivateRoute exact path='/private' component={FriendsList} 
-          render={props => (
-            <FriendsList {...props}
-             friends={props.friend} />
-          )} 
-         />  
-         <Route path='/login' component={Login} />
+          <Route exact path='/private-route' component={FriendsList} 
+           render={props => (
+             <FriendsList {...props}
+              friends={props.friend} />
+           )} 
+          />  
+          <Route path='/login' component={Login} />
+          <Route path='/friend-form' component={FriendForm} /> 
         </Switch> 
-      </header>
-     </div>
-    </Router> 
-  );
+      </div>
+   );
 }
 
 export default App;

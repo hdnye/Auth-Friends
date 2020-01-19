@@ -10,7 +10,8 @@
 //   email: 'joe@lambdaschool.com',
 // }
 // ```
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class FriendForm extends Component {
     state = {
@@ -26,16 +27,21 @@ export default class FriendForm extends Component {
      changeHandler = e => {
        e.preventDefault();
        this.setState({
-           friend: {
-               ...this.state.friend,
-               [e.target.name]: e.target.value
-           }
-       });
-     }; 
+             [e.target.name]: e.target.value          
+          });
+     };            
+      
 
      handleSubmit = e => {
          e.preventDefault();
-         this.setState(this.state.friend);
+         axios 
+          .post(`http://local:3000/api/friends`, {
+              method: 'POST', 
+              headers: {
+                  'content-type' : 'application/json'
+              },
+              body: JSON.stringify(this.state.friend)
+          })         
      };
 
 /**basic form to add new friends */
@@ -45,29 +51,29 @@ export default class FriendForm extends Component {
             <div>    
                <form onSubmit={this.handleSubmit}>
                  <label htmlFor='name'></label>
-                   <input key={this.friend.id}
+                   <input key={this.state.friend.id}
                      type='text'
                      name='name'
                      placeholder='Name'
-                     value={this.friend.name}
+                     value={this.state.friend.name}
                      onChange={this.changeHandler}
-                    /> 
+                    /><br /> 
                  <label htmlFor='age'></label>
-                   <input key={this.friend.id}
+                   <input 
                      type='text'
                      name='age'
                      placeholder='Age'
-                     value={this.friend.age}
+                     value={this.state.friend.age}
                      onChange={this.changeHandler}
-                    /> 
+                    /><br /> 
                   <label htmlFor='email'></label>
-                   <input key={this.friend.id}
+                   <input 
                      type='text'
                      name='email'
                      placeholder='Email'
-                     value={this.friend.email}
+                     value={this.state.friend.email}
                      onChange={this.changeHandler}
-                    /> 
+                    /><br /> 
                  <button className='btn'>Add Friend!</button>
                </form>                          
             </div>
