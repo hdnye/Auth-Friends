@@ -16,12 +16,12 @@ const Login = props => {
      axiosWithAuth()
       .post('/login', data)
       .then((res) => {
-        console.log(res)
-        localStorage('token', res.data.payload)
+        console.log(res);
+        localStorage.setItem('token', res.data.payload)
         props.history.push('/friend-list');
       })
     .catch(err => {
-      console.log('You Must Be Logged In', err)
+      console.log('Log In Failed', err)
     });
   }
 

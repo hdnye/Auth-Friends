@@ -10,86 +10,87 @@
 //   email: 'joe@lambdaschool.com',
 // }
 // ```
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+//import axios from 'axios';
+import axiosWithAuth from './axiosWithAuth';
 
 
-export default class FriendForm extends Component {
-    constructor() {
-        super();     
-         this.state = {
-            friend: { 
-                id: new Date(),
-                name: '',
-                age: '',
-                email: ''
-        }};
-    } 
 
-    /*event handler for submit and changeHandler*/
+const FriendForm = ({ friends, friendIndex }) => {
+  const [addFriend, setAddFriend] = useState({
+    name: '',
+    age: '',
+    email: ''
+  })
 
-     changeHandler = e => {
+
+    /*event handler for submit and handleChange*/
+
+     const handleChange = e => {
        e.preventDefault();
-       this.setState({
-         friend: {
-           ...this.state.friends,         
-            [e.target.name]: e.target.value          
-         }});
+       setAddFriend({
+        ...addFriend,
+        [e.target.name] : e.target.value
+      })
      };            
       
 
-     handleSubmit = e => {
+     const handleSubmit = e => {
          e.preventDefault();
-         axios 
-          .post(`http://localhost:5000/api/friends`, {
-              method: 'POST', 
-              headers: {
-                  'content-type' : 'application/json'
-              },
-              body: JSON.stringify(this.state.friend)
-            })
-            this.setState({
-              friend: {
-                name: '',
-                age: '',
-                email: ''
+         axiosWithAuth() 
+          .put('/friends/:id', addFriend)
+          // , {
+          //     method: 'PUT', 
+          //     headers: { 'content-type' : 'application/json' },
+          //     body: JSON.stringify(friends)
+          //   }
+          .then((res) => {
+            console.log(res);
+            friendIndex(friends.map(friend => {
+              if(friend.id === res.data.id) {
+                return res.data
               }
-          })       
+              return friend;
+            }))
+          }) 
+            .catch(err => console.log(err));
+                                
      };
 
 /**basic form to add new friends */
     
-    render() {
         return (
             <div>    
-               <form onSubmit={this.handleSubmit}>
+               <form onSubmit={handleSubmit}>
                  <label htmlFor='name'></label>
-                   <input key={this.state.friend.id}
+                   <input key={addFriend.id}
                      type='text'
                      name='name'
                      placeholder='Name'
-                     value={this.state.friend.name}
-                     onChange={this.changeHandler}
+                     value={addFriend.name}
+                     onChange={handleChange}
                     /><br /> 
                  <label htmlFor='age'></label>
                    <input 
                      type='text'
                      name='age'
                      placeholder='Age'
-                     value={this.state.friend.age}
-                     onChange={this.changeHandler}
+                     value={addFriend.age}
+                     onChange={handleChange}
                     /><br /> 
                   <label htmlFor='email'></label>
                    <input 
                      type='text'
                      name='email'
                      placeholder='Email'
-                     value={this.state.friend.email}
-                     onChange={this.changeHandler}
+                     value={addFriend.email}
+                     onChange={handleChange}
                     /><br /> 
                  <button className='btn'>Add Friend!</button>
                </form>                          
             </div>
         )
     }
-}
+
+
+export default FriendForm;
