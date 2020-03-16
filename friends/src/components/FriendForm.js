@@ -13,35 +13,48 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+
 export default class FriendForm extends Component {
-    state = {
-       friend: { 
-        id: new Date(),
-        name: '',
-        age: '',
-        email: ''
-    }};
+    constructor() {
+        super();     
+         this.state = {
+            friend: { 
+                id: new Date(),
+                name: '',
+                age: '',
+                email: ''
+        }};
+    } 
 
     /*event handler for submit and changeHandler*/
 
      changeHandler = e => {
        e.preventDefault();
        this.setState({
-             [e.target.name]: e.target.value          
-          });
+         friend: {
+           ...this.state.friends,         
+            [e.target.name]: e.target.value          
+         }});
      };            
       
 
      handleSubmit = e => {
          e.preventDefault();
          axios 
-          .post(`http://local:3000/api/friends`, {
+          .post(`http://localhost:5000/api/friends`, {
               method: 'POST', 
               headers: {
                   'content-type' : 'application/json'
               },
               body: JSON.stringify(this.state.friend)
-          })         
+            })
+            this.setState({
+              friend: {
+                name: '',
+                age: '',
+                email: ''
+              }
+          })       
      };
 
 /**basic form to add new friends */

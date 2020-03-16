@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
+import {  Route, NavLink, Switch } from 'react-router-dom';
 import './App.css';
 
 import PrivateRoute from './components/PrivateRoute';
@@ -11,10 +11,11 @@ function App() {
   return (
     <div className="App">
       <h1>Hey Friends!</h1>
+        <NavLink exact to='/'>Home</NavLink><br />
         <NavLink exact to='/login'>Login</NavLink><br />
         <NavLink exact to='/friend-form'>Add Friend</NavLink>
         <Switch>
-          <Route exact path='/private-route' component={FriendsList} 
+          <PrivateRoute exact path='/private-route' component={ FriendsList} 
            render={props => (
              <FriendsList {...props}
               friends={props.friend} />
