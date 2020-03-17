@@ -15,14 +15,15 @@ function App() {
         <NavLink exact to='/login'>Login</NavLink><br />
         <NavLink exact to='/friend-form'>Add Friend</NavLink>
         <Switch>
-          <PrivateRoute exact path='/private-route' component={ FriendsList} 
+          <PrivateRoute exact path='/private-route' component={FriendsList} 
            render={props => (
              <FriendsList {...props}
               friends={props.friend} />
            )} 
           />  
           <Route path='/login' component={Login} />
-          <Route path='/friend-form' component={FriendForm} /> 
+          <Route path='/friend-form' component={FriendForm} />        
+         
         </Switch> 
       </div>
    );

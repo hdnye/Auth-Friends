@@ -12,11 +12,11 @@
 // ```
 import React, { useState } from 'react';
 //import axios from 'axios';
-import axiosWithAuth from './axiosWithAuth';
+import axios from 'axios';
 
 
 
-const FriendForm = ({ friends, friendIndex }) => {
+const FriendForm = (props) => {
   const [addFriend, setAddFriend] = useState({
     name: '',
     age: '',
@@ -37,8 +37,8 @@ const FriendForm = ({ friends, friendIndex }) => {
 
      const handleSubmit = e => {
          e.preventDefault();
-         axiosWithAuth() 
-          .put('/friends/:id', addFriend)
+         axios
+          .put('https://localhost:5000/friends/:id', addFriend)
           // , {
           //     method: 'PUT', 
           //     headers: { 'content-type' : 'application/json' },
@@ -46,16 +46,12 @@ const FriendForm = ({ friends, friendIndex }) => {
           //   }
           .then((res) => {
             console.log(res);
-            friendIndex(friends.map(friend => {
-              if(friend.id === res.data.id) {
-                return res.data
-              }
-              return friend;
-            }))
+            props.history.push('/friend-list');
           }) 
             .catch(err => console.log(err));
                                 
      };
+
 
 /**basic form to add new friends */
     

@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import Friend from './Friend';
-import axiosWithAuth from './axiosWithAuth';
+import axios from 'axios';
 
 export default class FriendsList extends Component {
      constructor(props) {
@@ -17,8 +17,8 @@ export default class FriendsList extends Component {
     }
 
     getData = () => {      
-        axiosWithAuth()
-            .get(`/friends`)
+        axios
+            .get(`http://localhost:5000/friends`)
             .then(res => res.json)
             .then(data => 
             this.setState({ friends: data }))

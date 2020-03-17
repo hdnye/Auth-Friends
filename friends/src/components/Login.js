@@ -11,13 +11,12 @@ const Login = props => {
     password: ''
   })
 
-  const handleSubmit = e => {
-    e.preventDefault();
-     axiosWithAuth()
+  const handleSubmit = () => {
+    axiosWithAuth()
       .post('/login', data)
       .then((res) => {
         console.log(res);
-        localStorage.setItem('token', res.data.payload)
+        localStorage.setItem('token', res.data.payload);
         props.history.push('/friend-list');
       })
     .catch(err => {
