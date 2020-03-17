@@ -13,13 +13,15 @@
 import React, { useState } from 'react';
 //import axios from 'axios';
 import axios from 'axios';
+import axiosWithAuth from './axiosWithAuth';
 
 
 
 const FriendForm = (props) => {
   const [addFriend, setAddFriend] = useState({
+    id: new Date(),
     name: '',
-    age: '',
+    age: Number(),
     email: ''
 })
 
@@ -36,20 +38,21 @@ const FriendForm = (props) => {
       
 
      const handleSubmit = e => {
-         e.preventDefault();
-         axios
-          .put(`https://localhost:5000/friends/${props.id}`, addFriend)
+       console.log('submit');
+        e.preventDefault();
+         axiosWithAuth()
+          .post(`/friends/`, addFriend)
           // , {
           //     method: 'PUT', 
           //     headers: { 'content-type' : 'application/json' },
           //     body: JSON.stringify(friends)
           //   }
-          .then((res) => {
-            console.log(res);
+          .then(res => {
+            console.log(res.data);
             document.querySelector('form').reset();
             props.history.push('/friend-list');
           }) 
-            .catch(err => console.log(err));
+            .catch(err => console.log('not adding',err));
                                 
      };
 
