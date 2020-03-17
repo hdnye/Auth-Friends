@@ -2,7 +2,8 @@
 
 // * When the request returns, save the token to `localStorage`, then use the history object in your Login component to navigate your user to your FriendsList route
 import React, { useState } from 'react';
-import axiosWithAuth from './axiosWithAuth';
+//import axiosWithAuth from './axiosWithAuth';
+import axios from 'axios';
 
 
 const Login = props => {
@@ -11,9 +12,11 @@ const Login = props => {
     password: ''
   })
 
-  const handleSubmit = () => {
-    axiosWithAuth()
-      .post('/login', data)
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('here');
+    axios
+      .post("http://localhost:5000/api/login", data)
       .then((res) => {
         console.log(res);
         localStorage.setItem('token', res.data.payload);

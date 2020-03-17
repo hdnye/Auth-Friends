@@ -38,7 +38,7 @@ const FriendForm = (props) => {
      const handleSubmit = e => {
          e.preventDefault();
          axios
-          .put('https://localhost:5000/friends/:id', addFriend)
+          .put(`https://localhost:5000/friends/${addFriend.id}`, addFriend)
           // , {
           //     method: 'PUT', 
           //     headers: { 'content-type' : 'application/json' },
@@ -46,6 +46,7 @@ const FriendForm = (props) => {
           //   }
           .then((res) => {
             console.log(res);
+            document.querySelector('form').reset();
             props.history.push('/friend-list');
           }) 
             .catch(err => console.log(err));

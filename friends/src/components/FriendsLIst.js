@@ -1,36 +1,32 @@
 // In your FriendsList component, rendered with `<ProtectedRoute />`, you will create a list of your friends that you get from the API.
 
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Friend from './Friend';
 import axios from 'axios';
+import axiosWithAuth from './axiosWithAuth';
 
-export default class FriendsList extends Component {
-     constructor(props) {
-         super(props);
-          this.state = { 
-            friends: []
-        };
-} 
+const FriendList = props => {
 
-    componentDidMount() {   
-      this.getData();
-    }
+  // componentDidMount() { 
+    //   console.log('data');  
+    //   this.getData();
+    // }
 
-    getData = () => {      
-        axios
-            .get(`http://localhost:5000/friends`)
-            .then(res => res.json)
-            .then(data => 
-            this.setState({ friends: data }))
-           .catch(err => 
+   useEffect(()  => {
+          axiosWithAuth()
+            .get("http://localhost:5000/api/friends")
+           // .then(res => res.json)
+            .then(res => 
+               console.log(res.data))           
+            .catch(err => 
                 console.log('error', err));
-   };
+   }, []);
 
 
- render() {
+ 
       return (
          <div className='friendsList'>
-           {this.state.friends.map(friend => (
+           {props.friends && props.friends.map(friend => (
               <Friend key={friend.id} data={friend} />
               // <div> 
               //   <FriendForm /> </div> 
@@ -43,7 +39,8 @@ export default class FriendsList extends Component {
          </div>
        );
     } 
-  };
+  
+    export default FriendList;
           
           
  

@@ -15,7 +15,7 @@ function App() {
         <NavLink exact to='/login'>Login</NavLink><br />
         <NavLink exact to='/friend-form'>Add Friend</NavLink>
         <Switch>
-          <PrivateRoute exact path='/private-route' component={FriendsList} 
+          <PrivateRoute exact path='/friend-list' component={FriendsList} 
            render={props => (
              <FriendsList {...props}
               friends={props.friend} />
