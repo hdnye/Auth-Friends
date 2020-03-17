@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import Friend from './Friend';
-import axios from 'axios';
+//import axios from 'axios';
 import axiosWithAuth from './axiosWithAuth';
 
-const FriendList = props => {
-
+const FriendList = () => {
+  const [friends, setFriends] = useState([]);
   // componentDidMount() { 
     //   console.log('data');  
     //   this.getData();
@@ -14,10 +14,12 @@ const FriendList = props => {
 
    useEffect(()  => {
           axiosWithAuth()
-            .get("http://localhost:5000/api/friends")
+            .get("/friends")
            // .then(res => res.json)
-            .then(res => 
-               console.log(res.data))           
+            .then(res => {
+               console.log(res.data);
+               setFriends(res.data); 
+            })            
             .catch(err => 
                 console.log('error', err));
    }, []);
@@ -26,15 +28,14 @@ const FriendList = props => {
  
       return (
          <div className='friendsList'>
-           {props.friends && props.friends.map(friend => (
-              <Friend key={friend.id} data={friend} />
+           {friends.map(friend => (
+              <Friend key={friend.id} friend={friend} />
               // <div> 
-              //   <FriendForm /> </div> 
-              //  <div> <h2>Friend List</h2>
+              //  <FriendForm /> </div> 
+              //  <h2>Friend List</h2>
               //   <p>{friend.name}</p>
               //   <p>{friend.age}</p>
               //   <p>{friend.email}</p> 
-              // </div>  
               ))}   
          </div>
        );

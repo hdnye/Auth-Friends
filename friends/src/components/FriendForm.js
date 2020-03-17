@@ -21,7 +21,7 @@ const FriendForm = (props) => {
     name: '',
     age: '',
     email: ''
-  })
+})
 
 
     /*event handler for submit and handleChange*/
@@ -38,7 +38,7 @@ const FriendForm = (props) => {
      const handleSubmit = e => {
          e.preventDefault();
          axios
-          .put(`https://localhost:5000/friends/${addFriend.id}`, addFriend)
+          .put(`https://localhost:5000/friends/${props.id}`, addFriend)
           // , {
           //     method: 'PUT', 
           //     headers: { 'content-type' : 'application/json' },
